@@ -8,7 +8,8 @@ import {
 	alterarSecretario,
 	deletarSecretario,
 	listarSolicitacaoPeloTipo,
-	login
+	login,
+	alterarSenha
 } from "../controllers/secretarioController.js";
 import auth from "../middleware/auth.js";
 
@@ -37,5 +38,7 @@ router.get("/:secretarioId/solicitacoes", auth, listarSolicitacaoPeloTipo);
 
 // Login do secretario
 router.post("/login", login);
+
+router.post("/alterar-senha", alterarSenha)
 
 export default router;

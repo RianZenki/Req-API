@@ -326,7 +326,7 @@ export async function login(req, res) {
 
 		// Verifica se a senha informada está incorreta
 		if (!senhasIguais)
-			return res.status(400).json({ error: "Email ou senha inválidos" });
+			return res.status(400).json({ msg: "Email ou senha inválidos" });
 
 		// Verifica se a senha informada está correta
 		if (senhasIguais) {
@@ -334,16 +334,48 @@ export async function login(req, res) {
 				id: secretario.id,
 				email: email,
 				nome: secretario.nome,
-				cargo: secretario.cargo
+				cargo: secretario.cargo,
+				numeroMatricula: secretario.numeroMatricula
 			};
 
 			return res.status(200).send({
 				secretario: dadosSecretario,
 				token: sign(dadosSecretario, process.env.TOKEN_SECRET),
 			});
-		} else return res.status(400).send({ error: "Email ou senha inválidos" });
+		} else return res.status(400).send({ msg: "Email ou senha inválidos" });
 	} catch (error) {
 		console.log(error)
 		if (error) return res.status(400).send({ msg: "Falha no login" });
+	}
+}
+
+export async function alterarSenha(req, res) {
+	const { secretarioId, senhaAntiga } = req.body
+	const senha = hashSync(req.body.senha);
+
+	try {
+		const secretario = await prismaClient.secretario.findFirstOrThrow({
+			where: {
+				id: secretarioId,
+			}
+		})
+
+		const senhasIguais = compareSync(senhaAntiga, secretario.senha);
+
+		if (!senhasIguais)
+			return res.status(400).json({ msg: "Senha inválida" });
+
+		await prismaClient.secretario.update({
+			where: {
+				id: secretario.id
+			},
+			data: {
+				senha
+			}
+		})
+
+		return res.status(200).send({ msg: "Senha alterado com sucesso!" })
+	} catch (error) {
+		return res.status(400).send({ msg: "Erro ao alterar a senha!", error });
 	}
 }
