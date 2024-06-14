@@ -108,7 +108,6 @@ export async function listarSolicitacaoAluno(req, res) {
 		return res.status(200).send(solicitacoes)
 	}
 	catch (error) {
-		console.log(error)
 		if (error)
 			return res.status(400).send({ msg: "Erro ao listar a solicitação", error })
 	}

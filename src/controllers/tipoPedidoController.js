@@ -43,7 +43,6 @@ export async function cadastrarTodosTiposPedidos(req, res) {
 
 		return res.status(200).send(pedidos);
 	} catch (error) {
-		console.log(error);
 		return res
 			.status(400)
 			.send({ msg: "Erro ao cadastrar os tipos de pedidos", error });
@@ -56,7 +55,6 @@ export async function listarTiposPedidos(req, res) {
 
 		res.status(200).send(pedidos);
 	} catch (error) {
-		console.log(error);
 		return res
 			.status(400)
 			.send({ msg: "Falha ao listar tipos de pedidos", error });

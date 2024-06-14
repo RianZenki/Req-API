@@ -65,7 +65,6 @@ export async function novosTipoPedidoSecretario(req, res) {
 
 		return res.status(200).send(relacionamento);
 	} catch (error) {
-		console.log(error);
 		if (error)
 			return res.status(400).send({
 				msg: "Erro criar relacionamento entre o tipo de solicitação ao secretário",

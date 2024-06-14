@@ -303,7 +303,6 @@ export async function listarSolicitacaoPeloTipo(req, res) {
 
 		return res.status(200).send(solicitacoes);
 	} catch (error) {
-		console.log(error)
 		if (error)
 			return res.status(400).send({ msg: "Secretario não encontrado" });
 	}
@@ -344,7 +343,6 @@ export async function login(req, res) {
 			});
 		} else return res.status(400).send({ msg: "Email ou senha inválidos" });
 	} catch (error) {
-		console.log(error)
 		if (error) return res.status(400).send({ msg: "Falha no login" });
 	}
 }

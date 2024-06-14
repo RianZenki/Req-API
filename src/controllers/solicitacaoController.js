@@ -32,7 +32,6 @@ export async function novaSolicitacao(req, res) {
 			.status(200)
 			.send({ msg: "Solicitação criada com sucesso!", solicitacao });
 	} catch (error) {
-		console.log(error)
 		if (error)
 			return res
 				.status(400)
